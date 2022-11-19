@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Email log</title>
+    <link rel="stylesheet" type="text/css" href="static/style.css" />
+</head>
+<body>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>UID</th>
+                <th>Topic</th>
+                <th>Sent</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Read</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for email in emaillist %}
+            <tr>
+                <td>{{ email.uid }}</td>
+                <td>{{ email.topic }}</td>
+                <td>{{ email.sent }}</td>
+                <td>{{ email.mail_from  }}</td>
+                <td>{{ email.mail_to }}</td>
+                <td>{{ email.read }}</td>
+                <td>{{ email.readcount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+

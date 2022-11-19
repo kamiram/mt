@@ -1,0 +1,28 @@
+{
+  "name": "Mail Tracking Gmail Extension",
+  "description": "Mail Tracking with Streak Gmail SDK",
+  "version": "0.1",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://mail.google.com/*",
+        "https://mt.grexfeles.tk/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "scripting",
+    "identity",
+    "identity.email"
+  ],
+  "host_permissions": [
+    "https://mail.google.com/",
+    "https://mt.grexfeles.tk/*"
+  ],
+  "manifest_version": 3
+}
