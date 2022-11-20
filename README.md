@@ -59,7 +59,7 @@ $ npm run build
 plugins = python3
 base = <Путь к проекту>
 
-module = app:app
+module = wsgi:app
 chdir = %(base)
 home = %(base)/venv
 touch-reload = %(base)/restart

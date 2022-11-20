@@ -31,7 +31,7 @@ InboxSDK.load(2, "sdk_MailTracking_5d204ff84a").then((sdk) => {
           }
         };
         ready2go = true;
-        fetch('https://mt.grexfeles.tk/link?' + Date.now(), opt)
+        fetch('https://mailtracker.voxscribe.tk/link?' + Date.now(), opt)
           .then((response) =>{
             return response.text();
           })
