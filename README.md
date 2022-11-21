@@ -2,7 +2,7 @@
 
 ## Установка
 
-Как обычно создаем venv
+Как обычно создаем **venv**
 
 ```
 $ python -m venv venv
@@ -37,7 +37,13 @@ $ flask --app flaskr --debug run
 ```
 
 ## Настройка акканута приложения google и extension
-/instance/config.py
+В [Google Console](https://console.cloud.google.com/apis/credentials):
+
+Создать **OAuth client ID** для **Web Application **. Получить **CLIENT_ID** и **SECRET**.
+
+Важно указать верный callback из **OAUTH_CALLBACK_URL**.  
+
+Отредактировать **/instance/config.py**
 ```python
 HOST_URL = 'https://mailtracker.mckira.com/t/'
 OAUTH_CALLBACK_URL = 'https://mailtracker.mckira.com/callback'
@@ -46,10 +52,9 @@ GOOGLE_CLIENT_SECRET = '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'
 GOOGLE_DISCOVERY_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 ```
 
-
 ## Настройка Extension
 
-В файле src/content.js внизу поменять домен.
+В файле **src/content.js** внизу поменять домен.
 
 Пересобрать.
 
@@ -83,7 +88,7 @@ vacuum = true
 enable-threads = true
 ```
 
-Положить в /etc/uwsgi/app-enabled/mt.ini
+Положить в **/etc/uwsgi/app-enabled/mt.ini**
 
 ## Настройка NGINX
 
@@ -106,3 +111,4 @@ server {
 }
 ```
 
+Положить в **/etc/nginx/sites-enabled/mt**
