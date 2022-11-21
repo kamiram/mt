@@ -36,6 +36,17 @@ $ source venv/bin/activate
 $ flask --app flaskr --debug run
 ```
 
+## Настройка акканута приложения google и extension
+/instance/config.py
+```python
+HOST_URL = 'https://mailtracker.mckira.com/t/'
+OAUTH_CALLBACK_URL = 'https://mailtracker.mckira.com/callback'
+GOOGLE_CLIENT_ID = '591404482299-bnqje8f040jelan59tqgpsnljgp2au3r.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET = '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'
+GOOGLE_DISCOVERY_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+```
+
+
 ## Настройка Extension
 
 В файле src/content.js внизу поменять домен.

@@ -6,14 +6,15 @@
     {
       "matches": [
         "https://mail.google.com/*",
-        "https://mt.grexfeles.tk/*"
+        "https://mailtracker.voxscribe.tk/*",
+        "https://mailtracker.mckira.com/*"
       ],
       "js": ["content.js"],
       "run_at": "document_end"
     }
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "bg.js"
   },
   "permissions": [
     "scripting",
@@ -22,7 +23,8 @@
   ],
   "host_permissions": [
     "https://mail.google.com/",
-    "https://mt.grexfeles.tk/*"
+    "https://mailtracker.voxscribe.tk/*",
+    "https://mailtracker.mckira.com/*"
   ],
   "manifest_version": 3
 }

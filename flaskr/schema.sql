@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS email;
+DROP TABLE IF EXISTS user;
 
 CREATE TABLE email (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -7,6 +8,16 @@ CREATE TABLE email (
   mail_from TEXT NOT NULL DEFAULT '',
   mail_to TEXT NOT NULL DEFAULT '',
   sent DATETIME NOT NULL DEFAULT current_timestamp,
-  read DATETIME ,
+  read DATETIME,
+  is_sent INTEGER NOT NULL DEFAULT 0,
   readcount INTEGER NOT NULL DEFAULT 0
 );
+
+CREATE TABLE user (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  access_token TEXT NOT NULL,
+  id_token TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL
+);
+

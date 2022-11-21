@@ -8,6 +8,7 @@ module.exports = {
     content: './src/content.js',
     pageWorld: '@inboxsdk/core/pageWorld.js',
     background: '@inboxsdk/core/background.js',
+    bg: './src/bg.js',
   },
   module: {
     rules: [
