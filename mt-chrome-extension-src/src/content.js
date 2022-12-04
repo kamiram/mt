@@ -10,9 +10,6 @@ InboxSDK.load(2, "sdk_MailTracking_5d204ff84a").then((sdk) => {
           return;
         }
         console.info('process tracking: ', sdk.User.getEmailAddress(), sdk.User);
-//        chrome.identity.getProfileUserInfo((userInfo) => {
-//            console.info(userInfo);
-//        });
         event.cancel();
         const to = this.getToRecipients();
         var tostr = '';
@@ -34,14 +31,23 @@ InboxSDK.load(2, "sdk_MailTracking_5d204ff84a").then((sdk) => {
           }
         };
         ready2go = true;
-        fetch('https://mailtracker.mckira.com/link?' + Date.now(), opt)
+        fetch('https://mailtracker.mckira.com/ext/link?' + Date.now(), opt)
           .then((response) =>{
             return response.text();
           })
           .then((text) => {
-            const mailtrack = '\n\n<br><hr>Mail track <img width=1 height=1 src=' + text + '>';
-            this.setBodyHTML(this.getHTMLContent() + mailtrack);
-            this.send();
+	    if(text != ""){
+        	console.log('test text: ', text);
+          var json = JSON.parse(text);
+          var mailtrack = '';
+          if(json.banner)
+            mailtrack += '\n\n<br><hr>Mail track';
+
+          if(json.url)
+            mailtrack += '<img width=1 height=1 src=' + json.url + '>';
+        	this.setBodyHTML(this.getHTMLContent() + mailtrack);
+	    }
+	    this.send();
           });
       }
     );

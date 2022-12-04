@@ -1,0 +1,40 @@
+{% extends 'cp/base.html' %}
+{% block header %}
+<br><br>
+<h1 class="header center orange-text">Prices</h1>
+<div class="row ">
+    <div class="col s12 m3"></div>
+    <div class="col s12 m6">
+        <table >
+            <thead>
+            <tr>
+                <th>&nbsp;</th>
+                {% for price in prices %}
+                <th class="center-align">{{ price.title }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for feature in features%}
+            <tr>
+                <td>{{ feature.title }}</td>
+                {% for p in feature.prices %}
+                    <td class="center-align">{% if p %}<i class="material-icons green-text text-darken-3">check_box</i>{% else %}<i class="material-icons grey-text text-lighten-1">check_box_outline_blank</i>{% endif %}</td>
+                {% endfor %}
+            </tr>
+            {% endfor%}
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>&nbsp;</th>
+                {% for price in prices %}
+                <th class="center-align">{{ price.price }}&nbsp;&euro;/mo</th>
+                {% endfor %}
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</div>
+<br><br>
+{% endblock %}

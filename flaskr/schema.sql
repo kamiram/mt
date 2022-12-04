@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS email;
 DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS cconstant;
 
 CREATE TABLE email (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -16,8 +17,12 @@ CREATE TABLE email (
 CREATE TABLE user (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
   access_token TEXT NOT NULL,
-  id_token TEXT NOT NULL,
-  email TEXT UNIQUE NOT NULL
+  id_token TEXT NOT NULL
 );
 
+CREATE TABLE constant (
+  name TEXT NOT NULL,
+  value TEXT NOT NULL
+);

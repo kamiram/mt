@@ -1,0 +1,13 @@
+{% extends 'cp/base.html' %}
+{% load socialaccount %}
+{% block header %}
+    <br><br>
+    <h1 class="header center orange-text">Get started!</h1>
+    <div class="row center">
+        <h5 class="header col s12 light">Start logging emails </h5>
+    </div>
+    <div class="row center">
+        <a href="{% provider_login_url 'google' next='emaillist'%}"><img src="/static/googlelogin.png"></a>
+    </div>
+    <br><br>
+{% endblock %}

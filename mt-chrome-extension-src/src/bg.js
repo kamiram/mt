@@ -16,7 +16,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 chrome.runtime.onInstalled.addListener(function (object) {
-    let externalUrl = "https://mailtracker.voxscribe.tk/";
+    let externalUrl = "https://mailtracker.mckira.com/";
 
         console.log("Try to launch");
         chrome.tabs.create({ url: externalUrl }, function (tab) {

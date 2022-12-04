@@ -1,11 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'cp/base.html' %}
 {% block header %}
-<h2>Wellcome {{ user.username }} {{ user.email }} <a href="/logout">logout</a></h2>
+<h2>Wellcome {{ user.username }} {{ user.email }} <a href="/accounts/logout">logout</a></h2>
 
 <div class="row center">
 <table class="table">
         <thead>
             <tr>
+                <th>&nbsp;</th>
                 <th>UID</th>
                 <th>Topic</th>
                 <th>Sent</th>
@@ -18,6 +19,7 @@
         <tbody>
             {% for email in emaillist %}
             <tr>
+                <td><i class="material-icons {% if email.read %}green-text{%else%}gray-text{% endif %} text-darken-3">done_all</i></td>
                 <td>{{ email.uid }}</td>
                 <td>{{ email.topic }}</td>
                 <td>{{ email.sent }}</td>

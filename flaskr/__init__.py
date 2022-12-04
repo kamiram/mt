@@ -19,9 +19,11 @@ from flask_login import (
     login_user,
     logout_user,
 )
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from flask_sqlalchemy import SQLAlchemy
 from oauthlib.oauth2 import WebApplicationClient
 
-from . import db
 from .user import User
 
 
@@ -34,6 +36,9 @@ def create_app(test_config=None):
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
     )
     app.config.from_pyfile('config.py', silent=False)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://' + os.path.join(app.instance_path, 'flaskr.sqlite')
+    app.db = SQLAlchemy(app)
+    admin = Admin(app, name='MailTracking', template_mode='bootstrap3')
 
     login_manager = LoginManager()
     login_manager.init_app(app)
@@ -71,7 +76,6 @@ def create_app(test_config=None):
 
     @app.route('/t/<uid>')
     def touch(uid):
-        print(json.dumps(dict(request.headers), indent=4))
         cur = db.get_db().cursor()
         email = cur.execute('SELECT * FROM email WHERE uid=:uid', dict(uid=uid)).fetchone()
         if email:
@@ -93,6 +97,7 @@ def create_app(test_config=None):
     def link():
         data = json.loads(request.get_data())
         data['uid'] = uid = uuid4().hex
+
         cur = db.get_db().cursor()
         cur.execute(
             'INSERT INTO email (uid, mail_from, mail_to, topic, readcount) VALUES (:uid, :mail_from, :mail_to, :topic, -1)',
@@ -100,6 +105,7 @@ def create_app(test_config=None):
         )
         cur.close()
         db.get_db().commit()
+
         host_url = current_app.config['HOST_URL']
         resp = Response(response=f'{host_url}{uid}', status=200, mimetype='text/plain')
         resp.headers["Content-Type"] = 'text/plain'
@@ -120,7 +126,7 @@ def create_app(test_config=None):
             cur.close()
             return render_template('emaillog.html', emaillist=emails, username=current_user.name, email=current_user.email)
         else:
-            return redirect('/login')
+            return render_template('index.html')
 
     @app.route("/login")
     def login():
@@ -184,4 +190,5 @@ def create_app(test_config=None):
         logout_user()
         return redirect(url_for("index"))
 
+    from . import db
     return app

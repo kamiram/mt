@@ -3,38 +3,31 @@ import sqlite3
 import click
 from flask import current_app, g
 
-
-def get_db():
-    if 'db' not in g:
-        g.db = sqlite3.connect(
-            current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
-        )
-        g.db.row_factory = sqlite3.Row
-
-    return g.db
+db = current_app.db
 
 
-def close_db(e=None):
-    db = g.pop('db', None)
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
 
-    if db is not None:
-        db.close()
-
-def init_db():
-    db = get_db()
-
-    with current_app.open_resource('schema.sql') as f:
-        db.executescript(f.read().decode('utf8'))
+    def __repr__(self):
+        return '<User %r>' % self.username
 
 
-@click.command('init-db')
-def init_db_command():
-    """Clear the existing data and create new tables."""
-    init_db()
-    click.echo('Initialized the database.')
+class Email(db.Model):
+    uid = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
+    topic = db.Column(db.String(255), nullable=False, default='')
+    mail_from = db.Column(db.String(100), nullable=False)
+    mail_to = db.Column(db.String(100), nullable=False)
+    sent = db.Column(db.DateTime, nullable=False)
+    read = db.Column(db.DateTime, nullable=True)
+    is_sent = db.Column(db.Integer, nullable=False)
+    readcount = db.Column(db.Integer, nullable=False)
 
-def init_app(app):
-    app.teardown_appcontext(close_db)
-    app.cli.add_command(init_db_command)
-    
+    def __repr__(self):
+        return '<Email %r>' % self.uuid
+
+class Constant(db.Model):
+    name = db.Column(db.String(255), nullable=False)
+    value = db.Column(db.String(255), nullable=False)
